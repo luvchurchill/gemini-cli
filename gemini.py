@@ -73,10 +73,34 @@ def main():
         convo.send_message(" ".join(args.prompt))
         print(f"\n{convo.last.text}")
     else:
-        while True:
-            convo.send_message(input("Input: "))
+        interactive_loop(convo)
+
+
+def interactive_loop(convo):
+    while True:
+        user_input = input("Input: ")
+        if user_input.startswith("/"):
+            parts = user_input[1:].split()
+            command = parts[0]
+            arguments = parts[1:]
+
+            if command == "file":
+                try:
+                    with open(arguments[0], "r") as f:
+                        file_content = f.read()
+                        convo.send_message(file_content)
+                        print(f"\n{convo.last.text}")
+
+                except FileNotFoundError:
+                    print("File not found. ")
+            elif command == "exit":
+                break
+        else:
+            convo.send_message(user_input)
             print(f"\n{convo.last.text}")
 
 
 if __name__ == "__main__":
     main()
+
+
