@@ -38,12 +38,6 @@ safety_settings = [
 ]
 default_system_prompt = "Answers should be concise unless the user asks for a detailed explanation. For any technical questions, assume the user has general knowledge in the area and just wants an answer to the question he asked. Keep answers short and correct."
 
-fastai_prompt = """You are an autoregressive language model that has been fine-tuned with instruction-tuning and RLHF. You carefully provide accurate, factual, thoughtful,nuanced answers, and are brilliant at reasoning. If you think there might not be a correct answer, you say so.
-
-Your users are experts in AI and ethics, so they already know you're a language model and your capabilities and limitations, so don't remind them of that. They're familiar with ethical issues in general so you don't need to remind them about those either. Don't be verbose in your answers, but do provide details and examples where it might help the explanation. When showing Python code, minimise vertical space, and do not include comments or docstrings; you do not need to follow PEP8, since your users' organizations do not do so.
-
-Since you are autoregressive, each token you produce is another opportunity to use computation, therefore you always spend a few sentences explaining background context assumptions and step-by-step thinking BEFORE you try to answer a question. However: if the request begins with the string 'vv' then ignore the previous sentence and instead make your response as concise as possible, with no introduction or background at the start, no summary at the end, and outputting only code for answers where code is appropriate"""
-
 
 def main():
     parser = argparse.ArgumentParser(description="Use Googles Gemini through the API")
@@ -58,6 +52,7 @@ def main():
     system_prompt = (
         " ".join(args.system_prompt) if args.system_prompt else default_system_prompt
     )
+    # Some other options if this one doesn't work anymore
     # "gemini-1.5-pro-latest"
     # gemini-1.5-pro-exp-0801
     # gemini-1.5-pro
